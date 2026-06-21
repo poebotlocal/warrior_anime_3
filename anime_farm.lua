@@ -1,4 +1,4 @@
-print("[ProCloud] СТАРТ ИНИЦИАЛИЗАЦИИ...")
+print("[ProCloud] СТАРТ ИНИЦИАЛИЗАЦИЯ ЯДРА v10...")
 
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -18,7 +18,7 @@ local mouse = player:GetMouse()
 local apiUrl = "http://afkg.ru/config/api.php"
 local syncUrl = "http://afkg.ru/config/sync.php"
 local savedPoints, activeChain, activeChainName, activeChainIndex = {}, {}, nil, 1
-local autoStartConfig = {} -- Локальный кэш привязок [Имя] = "ИмяТочки"
+local autoStartConfig = {} 
 
 local reqFunc = (syn and syn.request) or (http and http.request) or http_request or (fluxus and fluxus.request) or request
 if not reqFunc then warn("[ProCloud] КРИТИЧЕСКИ: Экзекутор не поддерживает HTTP-запросы!") end
@@ -114,7 +114,7 @@ end
 -- =====================================================================
 -- ПОСТРОЕНИЕ ИНТЕРФЕЙСА
 -- =====================================================================
-local guiName = "ProCloud_Consolidated_V9"
+local guiName = "ProCloud_Consolidated_V10"
 local targetParent = player:WaitForChild("PlayerGui")
 local sCore, coreRes = pcall(function() return game:GetService("CoreGui") end)
 if sCore and coreRes then
@@ -133,28 +133,12 @@ Instance.new("UICorner", minToolbar).CornerRadius = UDim.new(0, 8)
 Instance.new("UIStroke", minToolbar).Color = Color3.fromRGB(60, 60, 70)
 
 local minLayout = Instance.new("UIListLayout", minToolbar)
-minLayout.FillDirection, minLayout.HorizontalAlignment, minLayout.VerticalAlignment = Enum.FillDirection.Horizontal, Enum.HorizontalAlignment.Center, Enum.VerticalAlignment.Center
-minLayout.Padding = UDim.new(0, 8)
+minLayout.FillDirection, minLayout.HorizontalAlignment, minLayout.VerticalAlignment = Enum.FillDirection.Horizontal, Enum.HorizontalAlignment.Center, Enum.VerticalAlignment.Center; minLayout.Padding = UDim.new(0, 8)
 
-local minBtnTpFleet = Instance.new("TextButton", minToolbar)
-minBtnTpFleet.Size, minBtnTpFleet.BackgroundColor3 = UDim2.new(0, 90, 0, 33), Color3.fromRGB(150, 60, 200)
-minBtnTpFleet.Text, minBtnTpFleet.TextColor3, minBtnTpFleet.Font, minBtnTpFleet.TextSize = "⚡ ТП ФЛОТ", Color3.new(1,1,1), Enum.Font.GothamBold, 11
-Instance.new("UICorner", minBtnTpFleet).CornerRadius = UDim.new(0, 4)
-
-local minBtnClickTP = Instance.new("TextButton", minToolbar)
-minBtnClickTP.Size, minBtnClickTP.BackgroundColor3 = UDim2.new(0, 115, 0, 33), Color3.fromRGB(200, 60, 60)
-minBtnClickTP.Text, minBtnClickTP.TextColor3, minBtnClickTP.Font, minBtnClickTP.TextSize = "🎯 ClickTP: ВЫКЛ", Color3.new(1,1,1), Enum.Font.GothamBold, 11
-Instance.new("UICorner", minBtnClickTP).CornerRadius = UDim.new(0, 4)
-
-local minBtnOpenFull = Instance.new("TextButton", minToolbar)
-minBtnOpenFull.Size, minBtnOpenFull.BackgroundColor3 = UDim2.new(0, 85, 0, 33), Color3.fromRGB(60, 120, 200)
-minBtnOpenFull.Text, minBtnOpenFull.TextColor3, minBtnOpenFull.Font, minBtnOpenFull.TextSize = "⚙️ МЕНЮ", Color3.new(1,1,1), Enum.Font.GothamBold, 11
-Instance.new("UICorner", minBtnOpenFull).CornerRadius = UDim.new(0, 4)
-
-local minBtnCloseAll = Instance.new("TextButton", minToolbar)
-minBtnCloseAll.Size, minBtnCloseAll.BackgroundColor3 = UDim2.new(0, 25, 0, 33), Color3.fromRGB(200, 60, 60)
-minBtnCloseAll.Text, minBtnCloseAll.TextColor3, minBtnCloseAll.Font, minBtnCloseAll.TextSize = "X", Color3.new(1,1,1), Enum.Font.GothamBold, 12
-Instance.new("UICorner", minBtnCloseAll).CornerRadius = UDim.new(0, 4)
+local minBtnTpFleet = Instance.new("TextButton", minToolbar); minBtnTpFleet.Size, minBtnTpFleet.BackgroundColor3 = UDim2.new(0, 90, 0, 33), Color3.fromRGB(150, 60, 200); minBtnTpFleet.Text, minBtnTpFleet.TextColor3, minBtnTpFleet.Font, minBtnTpFleet.TextSize = "⚡ ТП ФЛОТ", Color3.new(1,1,1), Enum.Font.GothamBold, 11; Instance.new("UICorner", minBtnTpFleet).CornerRadius = UDim.new(0, 4)
+local minBtnClickTP = Instance.new("TextButton", minToolbar); minBtnClickTP.Size, minBtnClickTP.BackgroundColor3 = UDim2.new(0, 115, 0, 33), Color3.fromRGB(200, 60, 60); minBtnClickTP.Text, minBtnClickTP.TextColor3, minBtnClickTP.Font, minBtnClickTP.TextSize = "🎯 ClickTP: ВЫКЛ", Color3.new(1,1,1), Enum.Font.GothamBold, 11; Instance.new("UICorner", minBtnClickTP).CornerRadius = UDim.new(0, 4)
+local minBtnOpenFull = Instance.new("TextButton", minToolbar); minBtnOpenFull.Size, minBtnOpenFull.BackgroundColor3 = UDim2.new(0, 85, 0, 33), Color3.fromRGB(60, 120, 200); minBtnOpenFull.Text, minBtnOpenFull.TextColor3, minBtnOpenFull.Font, minBtnOpenFull.TextSize = "⚙️ МЕНЮ", Color3.new(1,1,1), Enum.Font.GothamBold, 11; Instance.new("UICorner", minBtnOpenFull).CornerRadius = UDim.new(0, 4)
+local minBtnCloseAll = Instance.new("TextButton", minToolbar); minBtnCloseAll.Size, minBtnCloseAll.BackgroundColor3 = UDim2.new(0, 25, 0, 33), Color3.fromRGB(200, 60, 60); minBtnCloseAll.Text, minBtnCloseAll.TextColor3, minBtnCloseAll.Font, minBtnCloseAll.TextSize = "X", Color3.new(1,1,1), Enum.Font.GothamBold, 12; Instance.new("UICorner", minBtnCloseAll).CornerRadius = UDim.new(0, 4)
 
 -- --- 2. ГЛАВНОЕ ОКНО ---
 local mainFrame = Instance.new("Frame", screenGui)
@@ -162,26 +146,16 @@ mainFrame.Size, mainFrame.Position = UDim2.new(0, 580, 0, 430), UDim2.new(0.5, -
 mainFrame.BackgroundColor3, mainFrame.Active, mainFrame.Draggable = Color3.fromRGB(25, 25, 25), true, true
 Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0, 8)
 
-local minBtn = Instance.new("TextButton", mainFrame)
-minBtn.Size, minBtn.Position, minBtn.BackgroundTransparency = UDim2.new(0, 40, 0, 30), UDim2.new(1, -80, 0, 0), 1
-minBtn.Text, minBtn.TextColor3, minBtn.Font, minBtn.TextSize = "—", Color3.fromRGB(200, 200, 200), Enum.Font.GothamBold, 16
-
-local closeBtn = Instance.new("TextButton", mainFrame)
-closeBtn.Size, closeBtn.Position, closeBtn.BackgroundTransparency = UDim2.new(0, 40, 0, 30), UDim2.new(1, -40, 0, 0), 1
-closeBtn.Text, closeBtn.TextColor3, closeBtn.Font, closeBtn.TextSize = "X", Color3.fromRGB(255, 80, 80), Enum.Font.GothamBold, 16
+local minBtn = Instance.new("TextButton", mainFrame); minBtn.Size, minBtn.Position, minBtn.BackgroundTransparency = UDim2.new(0, 40, 0, 30), UDim2.new(1, -80, 0, 0), 1; minBtn.Text, minBtn.TextColor3, minBtn.Font, minBtn.TextSize = "—", Color3.fromRGB(200, 200, 200), Enum.Font.GothamBold, 16
+local closeBtn = Instance.new("TextButton", mainFrame); closeBtn.Size, closeBtn.Position, closeBtn.BackgroundTransparency = UDim2.new(0, 40, 0, 30), UDim2.new(1, -40, 0, 0), 1; closeBtn.Text, closeBtn.TextColor3, closeBtn.Font, closeBtn.TextSize = "X", Color3.fromRGB(255, 80, 80), Enum.Font.GothamBold, 16
 
 minBtn.MouseButton1Click:Connect(function() mainFrame.Visible = false; minToolbar.Visible = true end)
 minBtnOpenFull.MouseButton1Click:Connect(function() minToolbar.Visible = false; mainFrame.Visible = true end)
 
-local tabFrame = Instance.new("Frame", mainFrame)
-tabFrame.Size, tabFrame.Position, tabFrame.BackgroundTransparency = UDim2.new(1, -100, 0, 30), UDim2.new(0, 10, 0, 10), 1
+local tabFrame = Instance.new("Frame", mainFrame); tabFrame.Size, tabFrame.Position, tabFrame.BackgroundTransparency = UDim2.new(1, -100, 0, 30), UDim2.new(0, 10, 0, 10), 1
 
 local function createTabBtn(text, posX, width)
-    local btn = Instance.new("TextButton", tabFrame)
-    btn.Size, btn.Position, btn.BackgroundColor3 = UDim2.new(0, width, 1, 0), UDim2.new(0, posX, 0, 0), Color3.fromRGB(40, 40, 40)
-    btn.Text, btn.TextColor3, btn.Font, btn.TextSize = text, Color3.fromRGB(200, 200, 200), Enum.Font.GothamBold, 12
-    Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 4)
-    return btn
+    local btn = Instance.new("TextButton", tabFrame); btn.Size, btn.Position, btn.BackgroundColor3 = UDim2.new(0, width, 1, 0), UDim2.new(0, posX, 0, 0), Color3.fromRGB(40, 40, 40); btn.Text, btn.TextColor3, btn.Font, btn.TextSize = text, Color3.fromRGB(200, 200, 200), Enum.Font.GothamBold, 12; Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 4); return btn
 end
 
 local btnTabMain   = createTabBtn("ГЛАВНАЯ",  0,   100)
@@ -189,43 +163,27 @@ local btnTabFleet  = createTabBtn("ФЛОТ",     105, 90)
 local btnTabPoints = createTabBtn("ТОЧКИ",    200, 110)
 local btnTabChains = createTabBtn("МАРШРУТЫ", 315, 115)
 
-local contentFrame = Instance.new("Frame", mainFrame)
-contentFrame.Size, contentFrame.Position, contentFrame.BackgroundTransparency = UDim2.new(1, -20, 1, -60), UDim2.new(0, 10, 0, 50), 1
+local contentFrame = Instance.new("Frame", mainFrame); contentFrame.Size, contentFrame.Position, contentFrame.BackgroundTransparency = UDim2.new(1, -20, 1, -60), UDim2.new(0, 10, 0, 50), 1
 
 local pageMain   = Instance.new("Frame", contentFrame); pageMain.Size, pageMain.BackgroundTransparency = UDim2.new(1,0,1,0), 1
 local pageFleet  = Instance.new("Frame", contentFrame); pageFleet.Size, pageFleet.BackgroundTransparency, pageFleet.Visible = UDim2.new(1,0,1,0), 1, false
 local pagePoints = Instance.new("Frame", contentFrame); pagePoints.Size, pagePoints.BackgroundTransparency, pagePoints.Visible = UDim2.new(1,0,1,0), 1, false
 local pageChains = Instance.new("Frame", contentFrame); pageChains.Size, pageChains.BackgroundTransparency, pageChains.Visible = UDim2.new(1,0,1,0), 1, false
 
-local function switchTab(tabStr)
-    pageMain.Visible   = (tabStr=="Main")
-    pageFleet.Visible  = (tabStr=="Fleet")
-    pagePoints.Visible = (tabStr=="Points")
-    pageChains.Visible = (tabStr=="Chains")
-end
-btnTabMain.MouseButton1Click:Connect(function() switchTab("Main") end)
-btnTabFleet.MouseButton1Click:Connect(function() switchTab("Fleet") end)
-btnTabPoints.MouseButton1Click:Connect(function() switchTab("Points") end)
-btnTabChains.MouseButton1Click:Connect(function() switchTab("Chains") end)
+local function switchTab(tabStr) pageMain.Visible = (tabStr=="Main"); pageFleet.Visible = (tabStr=="Fleet"); pagePoints.Visible = (tabStr=="Points"); pageChains.Visible = (tabStr=="Chains") end
+btnTabMain.MouseButton1Click:Connect(function() switchTab("Main") end); btnTabFleet.MouseButton1Click:Connect(function() switchTab("Fleet") end); btnTabPoints.MouseButton1Click:Connect(function() switchTab("Points") end); btnTabChains.MouseButton1Click:Connect(function() switchTab("Chains") end)
+
 
 -- =====================================================================
--- ВКЛАДКА 1: ГЛАВНАЯ (С МОДУЛЬНЫМ СПАММЕРОМ)
+-- ВКЛАДКА 1: ГЛАВНАЯ
 -- =====================================================================
 local function createSettingRow(parent, yPos, labelText, defaultInput, btnText, useInput)
-    local label = Instance.new("TextLabel", parent)
-    label.Size, label.Position, label.BackgroundTransparency = UDim2.new(0, 150, 0, 30), UDim2.new(0, 10, 0, yPos), 1
-    label.Text, label.TextColor3, label.Font, label.TextSize, label.TextXAlignment = labelText, Color3.new(1,1,1), Enum.Font.GothamMedium, 13, Enum.TextXAlignment.Left
+    local label = Instance.new("TextLabel", parent); label.Size, label.Position, label.BackgroundTransparency = UDim2.new(0, 150, 0, 30), UDim2.new(0, 10, 0, yPos), 1; label.Text, label.TextColor3, label.Font, label.TextSize, label.TextXAlignment = labelText, Color3.new(1,1,1), Enum.Font.GothamMedium, 13, Enum.TextXAlignment.Left
     local input = nil
     if useInput then
-        input = Instance.new("TextBox", parent)
-        input.Size, input.Position, input.BackgroundColor3 = UDim2.new(0, 60, 0, 30), UDim2.new(0, 170, 0, yPos), Color3.fromRGB(40,40,40)
-        input.Text, input.TextColor3, input.Font, input.TextSize = tostring(defaultInput), Color3.new(1,1,1), Enum.Font.Gotham, 14
-        Instance.new("UICorner", input).CornerRadius = UDim.new(0, 4)
+        input = Instance.new("TextBox", parent); input.Size, input.Position, input.BackgroundColor3 = UDim2.new(0, 60, 0, 30), UDim2.new(0, 170, 0, yPos), Color3.fromRGB(40,40,40); input.Text, input.TextColor3, input.Font, input.TextSize = tostring(defaultInput), Color3.new(1,1,1), Enum.Font.Gotham, 14; Instance.new("UICorner", input).CornerRadius = UDim.new(0, 4)
     end
-    local btn = Instance.new("TextButton", parent)
-    btn.Size, btn.Position, btn.BackgroundColor3 = UDim2.new(0, 100, 0, 30), UDim2.new(0, 240, 0, yPos), Color3.fromRGB(200, 60, 60)
-    btn.Text, btn.TextColor3, btn.Font, btn.TextSize = btnText, Color3.new(1,1,1), Enum.Font.GothamBold, 12
-    Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 4)
+    local btn = Instance.new("TextButton", parent); btn.Size, btn.Position, btn.BackgroundColor3 = UDim2.new(0, 100, 0, 30), UDim2.new(0, 240, 0, yPos), Color3.fromRGB(200, 60, 60); btn.Text, btn.TextColor3, btn.Font, btn.TextSize = btnText, Color3.new(1,1,1), Enum.Font.GothamBold, 12; Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 4)
     return input, btn
 end
 
@@ -235,42 +193,25 @@ local _, afkToggle            = createSettingRow(pageMain, 80,  "Anti-AFK (Ан�
 local _, rejoinToggle         = createSettingRow(pageMain, 120, "Auto-Rejoin (Реконнект):", nil, "ВЫКЛ", false)
 local _, mainClickTpBtn       = createSettingRow(pageMain, 160, "Click Teleport:", nil, "ВЫКЛ", false)
 
--- Функция управления Пробелом (вызывается и по кнопке, и из Авто-Старта)
 local function toggleSpaceMode(forceState, forceInterval)
     if forceState ~= nil then getgenv().spamSpace = forceState else getgenv().spamSpace = not getgenv().spamSpace end
     if forceInterval then spaceDelay.Text = tostring(forceInterval) end
-
-    spaceToggle.BackgroundColor3 = getgenv().spamSpace and Color3.fromRGB(60, 170, 60) or Color3.fromRGB(200, 60, 60)
-    spaceToggle.Text = getgenv().spamSpace and "ВКЛ" or "ВЫКЛ"
+    spaceToggle.BackgroundColor3 = getgenv().spamSpace and Color3.fromRGB(60, 170, 60) or Color3.fromRGB(200, 60, 60); spaceToggle.Text = getgenv().spamSpace and "ВКЛ" or "ВЫКЛ"
 
     if getgenv().spamSpace then
-        task.spawn(function()
-            while getgenv().spamSpace do
-                pressKey(Enum.KeyCode.Space)
-                task.wait(tonumber(spaceDelay.Text) or 1)
-            end
-        end)
+        task.spawn(function() while getgenv().spamSpace do pressKey(Enum.KeyCode.Space); task.wait(tonumber(spaceDelay.Text) or 1) end end)
     end
 end
 spaceToggle.MouseButton1Click:Connect(function() toggleSpaceMode() end)
 
-xToggle.MouseButton1Click:Connect(function()
-    getgenv().spamX = not getgenv().spamX
-    xToggle.BackgroundColor3, xToggle.Text = (getgenv().spamX and Color3.fromRGB(60, 170, 60) or Color3.fromRGB(200, 60, 60)), (getgenv().spamX and "ВКЛ" or "ВЫКЛ")
-    if getgenv().spamX then task.spawn(function() while getgenv().spamX do pressKey(Enum.KeyCode.X); task.wait(tonumber(xDelay.Text) or 1) end end) end
-end)
+xToggle.MouseButton1Click:Connect(function() getgenv().spamX = not getgenv().spamX; xToggle.BackgroundColor3, xToggle.Text = (getgenv().spamX and Color3.fromRGB(60, 170, 60) or Color3.fromRGB(200, 60, 60)), (getgenv().spamX and "ВКЛ" or "ВЫКЛ"); if getgenv().spamX then task.spawn(function() while getgenv().spamX do pressKey(Enum.KeyCode.X); task.wait(tonumber(xDelay.Text) or 1) end end) end end)
 
 afkToggle.MouseButton1Click:Connect(function() getgenv().antiAfkEnabled = not getgenv().antiAfkEnabled; afkToggle.BackgroundColor3, afkToggle.Text = (getgenv().antiAfkEnabled and Color3.fromRGB(60, 170, 60) or Color3.fromRGB(200, 60, 60)), (getgenv().antiAfkEnabled and "ВКЛ" or "ВЫКЛ") end)
 player.Idled:Connect(function() if getgenv().antiAfkEnabled then VirtualUser:Button2Down(Vector2.new(0,0), Workspace.CurrentCamera.CFrame); task.wait(1); VirtualUser:Button2Up(Vector2.new(0,0), Workspace.CurrentCamera.CFrame) end end)
 
 rejoinToggle.MouseButton1Click:Connect(function() getgenv().autoRejoinEnabled = not getgenv().autoRejoinEnabled; rejoinToggle.BackgroundColor3, rejoinToggle.Text = (getgenv().autoRejoinEnabled and Color3.fromRGB(60, 170, 60) or Color3.fromRGB(200, 60, 60)), (getgenv().autoRejoinEnabled and "ВКЛ" or "ВЫКЛ") end)
 
-local function syncClickTpState()
-    local state = getgenv().clickTpEnabled
-    local bg = state and Color3.fromRGB(60, 170, 60) or Color3.fromRGB(200, 60, 60)
-    minBtnClickTP.BackgroundColor3, minBtnClickTP.Text = bg, (state and "🎯 ClickTP: ВКЛ" or "🎯 ClickTP: ВЫКЛ")
-    mainClickTpBtn.BackgroundColor3, mainClickTpBtn.Text = bg, (state and "ВКЛ" or "ВЫКЛ")
-end
+local function syncClickTpState() local state = getgenv().clickTpEnabled; local bg = state and Color3.fromRGB(60, 170, 60) or Color3.fromRGB(200, 60, 60); minBtnClickTP.BackgroundColor3, minBtnClickTP.Text = bg, (state and "🎯 ClickTP: ВКЛ" or "🎯 ClickTP: ВЫКЛ"); mainClickTpBtn.BackgroundColor3, mainClickTpBtn.Text = bg, (state and "ВКЛ" or "ВЫКЛ") end
 minBtnClickTP.MouseButton1Click:Connect(function() getgenv().clickTpEnabled = not getgenv().clickTpEnabled; syncClickTpState() end)
 mainClickTpBtn.MouseButton1Click:Connect(function() getgenv().clickTpEnabled = not getgenv().clickTpEnabled; syncClickTpState() end)
 
@@ -281,22 +222,7 @@ local hopLabel = Instance.new("TextLabel", pageMain); hopLabel.Size, hopLabel.Po
 local hopEmptyBtn = Instance.new("TextButton", pageMain); hopEmptyBtn.Size, hopEmptyBtn.Position, hopEmptyBtn.BackgroundColor3 = UDim2.new(0, 160, 0, 30), UDim2.new(0, 10, 0, 230), Color3.fromRGB(60, 120, 200); hopEmptyBtn.Text, hopEmptyBtn.TextColor3, hopEmptyBtn.Font, hopEmptyBtn.TextSize = "МЕНЕЕ ЗАГРУЖЕННЫЙ", Color3.new(1,1,1), Enum.Font.GothamBold, 11; Instance.new("UICorner", hopEmptyBtn).CornerRadius = UDim.new(0, 4)
 local hopFullBtn = Instance.new("TextButton", pageMain); hopFullBtn.Size, hopFullBtn.Position, hopFullBtn.BackgroundColor3 = UDim2.new(0, 160, 0, 30), UDim2.new(0, 180, 0, 230), Color3.fromRGB(200, 100, 60); hopFullBtn.Text, hopFullBtn.TextColor3, hopFullBtn.Font, hopFullBtn.TextSize = "ПОЛНЫЙ (1 место)", Color3.new(1,1,1), Enum.Font.GothamBold, 11; Instance.new("UICorner", hopFullBtn).CornerRadius = UDim.new(0, 4)
 
-local function serverHop(sortOrder)
-    hopLabel.Text = "Ищем сервер..."
-    task.spawn(function()
-        local url = "https://games.roproxy.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=" .. sortOrder .. "&limit=100"
-        local s, r = pcall(function() return reqFunc({Url = url, Method = "GET"}) end)
-        if s and r and r.StatusCode == 200 then
-            local data = HttpService:JSONDecode(r.Body)
-            if data and data.data then
-                for _, srv in ipairs(data.data) do
-                    if srv.playing < srv.maxPlayers and srv.id ~= game.JobId then hopLabel.Text = "Телепортируемся..."; TeleportService:TeleportToPlaceInstance(game.PlaceId, srv.id, player); return end
-                end
-            end
-        end
-        hopLabel.Text = "Сервер не найден :("
-    end)
-end
+local function serverHop(sortOrder) hopLabel.Text = "Ищем сервер..."; task.spawn(function() local url = "https://games.roproxy.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=" .. sortOrder .. "&limit=100"; local s, r = pcall(function() return reqFunc({Url = url, Method = "GET"}) end); if s and r and r.StatusCode == 200 then local data = HttpService:JSONDecode(r.Body); if data and data.data then for _, srv in ipairs(data.data) do if srv.playing < srv.maxPlayers and srv.id ~= game.JobId then hopLabel.Text = "Телепортируемся..."; TeleportService:TeleportToPlaceInstance(game.PlaceId, srv.id, player); return end end end end; hopLabel.Text = "Сервер не найден :(" end) end
 hopEmptyBtn.MouseButton1Click:Connect(function() serverHop("Asc") end); hopFullBtn.MouseButton1Click:Connect(function() serverHop("Desc") end)
 
 
@@ -313,45 +239,73 @@ mainBtnFollow.MouseButton1Click:Connect(function() isFollowing = not isFollowing
 
 
 -- =====================================================================
--- ВКЛАДКА 3: ТОЧКИ (С ПАНЕЛЬЮ АВТО-СТАРТА)
+-- ВКЛАДКА 3: ТОЧКИ (С ГИБРИДНОЙ ПАНЕЛЬЮ АВТО-СТАРТА v10)
 -- =====================================================================
--- --- ПАНЕЛЬ АВТОСТАРТА (ВЕРХНЯЯ СТРОКА) ---
-local asLabel = Instance.new("TextLabel", pagePoints); asLabel.Size, asLabel.Position, asLabel.BackgroundTransparency = UDim2.new(0, 85, 0, 30), UDim2.new(0, 0, 0, 0), 1; asLabel.Text, asLabel.TextColor3, asLabel.Font, asLabel.TextSize, asLabel.TextXAlignment = "Авто-вход:", Color3.fromRGB(200, 200, 255), Enum.Font.GothamBold, 12, Enum.TextXAlignment.Left
-local asNickInput = Instance.new("TextBox", pagePoints); asNickInput.Size, asNickInput.Position, asNickInput.BackgroundColor3 = UDim2.new(0, 110, 0, 30), UDim2.new(0, 85, 0, 0), Color3.fromRGB(40,40,40); asNickInput.Text, asNickInput.TextColor3, asNickInput.Font, asNickInput.TextSize = player.Name, Color3.new(1,1,1), Enum.Font.Gotham, 12; Instance.new("UICorner", asNickInput).CornerRadius = UDim.new(0, 4)
-local asPointBtn = Instance.new("TextButton", pagePoints); asPointBtn.Size, asPointBtn.Position, asPointBtn.BackgroundColor3 = UDim2.new(0, 150, 0, 30), UDim2.new(0, 205, 0, 0), Color3.fromRGB(60, 120, 200); asPointBtn.Text, asPointBtn.TextColor3, asPointBtn.Font, asPointBtn.TextSize = "Выбрать точку...", Color3.new(1,1,1), Enum.Font.GothamBold, 11; Instance.new("UICorner", asPointBtn).CornerRadius = UDim.new(0, 4)
-local asSaveBtn = Instance.new("TextButton", pagePoints); asSaveBtn.Size, asSaveBtn.Position, asSaveBtn.BackgroundColor3 = UDim2.new(0, 95, 0, 30), UDim2.new(0, 365, 0, 0), Color3.fromRGB(150, 60, 200); asSaveBtn.Text, asSaveBtn.TextColor3, asSaveBtn.Font, asSaveBtn.TextSize = "ЗАБИНДИТЬ", Color3.new(1,1,1), Enum.Font.GothamBold, 11; Instance.new("UICorner", asSaveBtn).CornerRadius = UDim.new(0, 4)
+local asTopContainer = Instance.new("Frame", pagePoints)
+asTopContainer.Size, asTopContainer.Position, asTopContainer.BackgroundTransparency = UDim2.new(1, -10, 0, 32), UDim2.new(0, 0, 0, 0), 1
+local asTopLayout = Instance.new("UIListLayout", asTopContainer)
+asTopLayout.FillDirection, asTopLayout.HorizontalAlignment, asTopLayout.VerticalAlignment = Enum.FillDirection.Horizontal, Enum.HorizontalAlignment.Left, Enum.VerticalAlignment.Center; asTopLayout.Padding = UDim.new(0, 5)
+
+local asLabel = Instance.new("TextLabel", asTopContainer); asLabel.Size, asLabel.BackgroundTransparency = UDim2.new(0, 40, 0, 30), 1; asLabel.Text, asLabel.TextColor3, asLabel.Font, asLabel.TextSize = "Авто:", Color3.fromRGB(200, 200, 255), Enum.Font.GothamBold, 12
+local asNickInput = Instance.new("TextBox", asTopContainer); asNickInput.Size, asNickInput.BackgroundColor3 = UDim2.new(0, 85, 0, 30), Color3.fromRGB(40,40,40); asNickInput.Text, asNickInput.TextColor3, asNickInput.Font, asNickInput.TextSize = player.Name, Color3.new(1,1,1), Enum.Font.Gotham, 11; Instance.new("UICorner", asNickInput).CornerRadius = UDim.new(0, 4)
+
+local isDualMode = false
+local asModeBtn = Instance.new("TextButton", asTopContainer)
+asModeBtn.Size, asModeBtn.BackgroundColor3 = UDim2.new(0, 105, 0, 30), Color3.fromRGB(200, 110, 50)
+asModeBtn.Text, asModeBtn.TextColor3, asModeBtn.Font, asModeBtn.TextSize = "Режим: 1 ТЧК", Color3.new(1,1,1), Enum.Font.GothamBold, 11
+Instance.new("UICorner", asModeBtn).CornerRadius = UDim.new(0, 4)
+
+local asP1Btn = Instance.new("TextButton", asTopContainer); asP1Btn.Size, asP1Btn.BackgroundColor3 = UDim2.new(0, 105, 0, 30), Color3.fromRGB(60, 120, 200); asP1Btn.Text, asP1Btn.TextColor3, asP1Btn.Font, asP1Btn.TextSize = "Точка 1...", Color3.new(1,1,1), Enum.Font.GothamBold, 11; Instance.new("UICorner", asP1Btn).CornerRadius = UDim.new(0, 4)
+local asP2Btn = Instance.new("TextButton", asTopContainer); asP2Btn.Size, asP2Btn.BackgroundColor3 = UDim2.new(0, 105, 0, 30), Color3.fromRGB(120, 60, 200); asP2Btn.Text, asP2Btn.TextColor3, asP2Btn.Font, asP2Btn.TextSize = "Точка 2...", Color3.new(1,1,1), Enum.Font.GothamBold, 11; Instance.new("UICorner", asP2Btn).CornerRadius = UDim.new(0, 4); asP2Btn.Visible = false
+
+local asSaveBtn = Instance.new("TextButton", asTopContainer); asSaveBtn.Size, asSaveBtn.BackgroundColor3 = UDim2.new(0, 80, 0, 30), Color3.fromRGB(60, 170, 60); asSaveBtn.Text, asSaveBtn.TextColor3, asSaveBtn.Font, asSaveBtn.TextSize = "БИНД", Color3.new(1,1,1), Enum.Font.GothamBold, 11; Instance.new("UICorner", asSaveBtn).CornerRadius = UDim.new(0, 4)
 
 local asDropdown = Instance.new("ScrollingFrame", pagePoints)
-asDropdown.Size, asDropdown.Position, asDropdown.BackgroundColor3 = UDim2.new(0, 150, 0, 110), UDim2.new(0, 205, 0, 32), Color3.fromRGB(35, 35, 35)
+asDropdown.Size, asDropdown.Position, asDropdown.BackgroundColor3 = UDim2.new(0, 180, 0, 130), UDim2.new(0, 235, 0, 35), Color3.fromRGB(35, 35, 35)
 asDropdown.CanvasSize, asDropdown.ScrollBarThickness, asDropdown.Visible, asDropdown.ZIndex = UDim2.new(0,0,0,0), 4, false, 10
 local asDropLayout = Instance.new("UIListLayout", asDropdown); asDropLayout.Padding = UDim.new(0, 2)
 
--- --- СТАНДАРТНОЕ СОЗДАНИЕ ТОЧЕК (СДВИНУТО НА Y=45) ---
-local ptNameInput = Instance.new("TextBox", pagePoints); ptNameInput.Size, ptNameInput.Position, ptNameInput.BackgroundColor3 = UDim2.new(0, 200, 0, 35), UDim2.new(0, 0, 0, 45), Color3.fromRGB(40, 40, 40); ptNameInput.Text, ptNameInput.PlaceholderText, ptNameInput.TextColor3 = "", "Название точки...", Color3.new(1,1,1); ptNameInput.Font, ptNameInput.TextSize = Enum.Font.Gotham, 14; Instance.new("UICorner", ptNameInput).CornerRadius = UDim.new(0, 4)
-local ptSaveBtn = Instance.new("TextButton", pagePoints); ptSaveBtn.Size, ptSaveBtn.Position, ptSaveBtn.BackgroundColor3 = UDim2.new(0, 150, 0, 35), UDim2.new(0, 210, 0, 45), Color3.fromRGB(60, 170, 60); ptSaveBtn.Text, ptSaveBtn.TextColor3, ptSaveBtn.Font, ptSaveBtn.TextSize = "+ СОХРАНИТЬ", Color3.new(1,1,1), Enum.Font.GothamBold, 12; Instance.new("UICorner", ptSaveBtn).CornerRadius = UDim.new(0, 4)
-
-local ptList = Instance.new("ScrollingFrame", pagePoints); ptList.Size, ptList.Position, ptList.BackgroundTransparency = UDim2.new(1, 0, 1, -90), UDim2.new(0, 0, 0, 90), 1; ptList.CanvasSize, ptList.ScrollBarThickness = UDim2.new(0, 0, 0, 0), 6; local ptLayout = Instance.new("UIListLayout", ptList); ptLayout.Padding = UDim.new(0, 5)
-
-local function populateAsDropdown()
+local activeTargetBtn = nil
+local function populateAsDropdown(targetBtn)
+    activeTargetBtn = targetBtn
     for _,v in pairs(asDropdown:GetChildren()) do if v:IsA("TextButton") then v:Destroy() end end
     local c = 0
     for pName, _ in pairs(savedPoints) do
         c = c + 1
         local b = Instance.new("TextButton", asDropdown); b.Size, b.BackgroundColor3 = UDim2.new(1, -8, 0, 22), Color3.fromRGB(50,50,50); b.Text, b.TextColor3, b.Font, b.TextSize = pName, Color3.new(1,1,1), Enum.Font.Gotham, 11
-        b.MouseButton1Click:Connect(function() asPointBtn.Text = pName; asDropdown.Visible = false end)
+        b.MouseButton1Click:Connect(function() if activeTargetBtn then activeTargetBtn.Text = pName end; asDropdown.Visible = false end)
     end
     asDropdown.CanvasSize = UDim2.new(0,0,0, c*24)
 end
 
-asPointBtn.MouseButton1Click:Connect(function() asDropdown.Visible = not asDropdown.Visible; if asDropdown.Visible then populateAsDropdown() end end)
-asSaveBtn.MouseButton1Click:Connect(function()
-    local n, p = asNickInput.Text, asPointBtn.Text
-    if n ~= "" and p ~= "Выбрать точку..." and savedPoints[p] then
-        autoStartConfig[n] = p
-        req("save_autostart", nil, autoStartConfig)
-        asSaveBtn.Text = "ОК!"; task.wait(1); asSaveBtn.Text = "ЗАБИНДИТЬ"
-    end
+asModeBtn.MouseButton1Click:Connect(function()
+    isDualMode = not isDualMode
+    asP2Btn.Visible = isDualMode
+    asModeBtn.Text = isDualMode and "Режим: 2 ТЧК" or "Режим: 1 ТЧК"
+    asModeBtn.BackgroundColor3 = isDualMode and Color3.fromRGB(200, 50, 110) or Color3.fromRGB(200, 110, 50)
 end)
+
+asP1Btn.MouseButton1Click:Connect(function() asDropdown.Visible = true; asDropdown.Position = UDim2.new(0, asP1Btn.AbsolutePosition.X - mainFrame.AbsolutePosition.X, 0, 35); populateAsDropdown(asP1Btn) end)
+asP2Btn.MouseButton1Click:Connect(function() asDropdown.Visible = true; asDropdown.Position = UDim2.new(0, asP2Btn.AbsolutePosition.X - mainFrame.AbsolutePosition.X, 0, 35); populateAsDropdown(asP2Btn) end)
+
+asSaveBtn.MouseButton1Click:Connect(function()
+    local n, pt1, pt2 = asNickInput.Text, asP1Btn.Text, asP2Btn.Text
+    if n == "" or pt1 == "Точка 1..." or not savedPoints[pt1] then return end
+    if isDualMode and (pt2 == "Точка 2..." or not savedPoints[pt2]) then return end
+
+    local payload = { mode = (isDualMode and "dual" or "single"), p1 = pt1 }
+    if isDualMode then payload.p2 = pt2 end
+
+    autoStartConfig[n] = payload
+    req("save_autostart", nil, autoStartConfig)
+
+    asSaveBtn.Text = "ОК!"; task.wait(1); asSaveBtn.Text = "БИНД"
+end)
+
+-- --- СТАНДАРТНОЕ СОЗДАНИЕ ТОЧЕК (СДВИНУТО НА Y=45) ---
+local ptNameInput = Instance.new("TextBox", pagePoints); ptNameInput.Size, ptNameInput.Position, ptNameInput.BackgroundColor3 = UDim2.new(0, 200, 0, 35), UDim2.new(0, 0, 0, 45), Color3.fromRGB(40, 40, 40); ptNameInput.Text, ptNameInput.PlaceholderText, ptNameInput.TextColor3 = "", "Название точки...", Color3.new(1,1,1); ptNameInput.Font, ptNameInput.TextSize = Enum.Font.Gotham, 14; Instance.new("UICorner", ptNameInput).CornerRadius = UDim.new(0, 4)
+local ptSaveBtn = Instance.new("TextButton", pagePoints); ptSaveBtn.Size, ptSaveBtn.Position, ptSaveBtn.BackgroundColor3 = UDim2.new(0, 150, 0, 35), UDim2.new(0, 210, 0, 45), Color3.fromRGB(60, 170, 60); ptSaveBtn.Text, ptSaveBtn.TextColor3, ptSaveBtn.Font, ptSaveBtn.TextSize = "+ СОХРАНИТЬ", Color3.new(1,1,1), Enum.Font.GothamBold, 12; Instance.new("UICorner", ptSaveBtn).CornerRadius = UDim.new(0, 4)
+local ptList = Instance.new("ScrollingFrame", pagePoints); ptList.Size, ptList.Position, ptList.BackgroundTransparency = UDim2.new(1, 0, 1, -90), UDim2.new(0, 0, 0, 90), 1; ptList.CanvasSize, ptList.ScrollBarThickness = UDim2.new(0, 0, 0, 0), 6; local ptLayout = Instance.new("UIListLayout", ptList); ptLayout.Padding = UDim.new(0, 5)
 
 local function refreshPointsUI()
     for _, v in pairs(ptList:GetChildren()) do if v:IsA("Frame") then v:Destroy() end end
@@ -367,7 +321,6 @@ local function refreshPointsUI()
         delBtn.MouseButton1Click:Connect(function() savedPoints[name] = nil; savePointsData(); refreshPointsUI() end)
     end
     ptList.CanvasSize = UDim2.new(0, 0, 0, count * 40)
-    populateAsDropdown() -- Обновляем и дропдаун автостарта
 end
 
 ptSaveBtn.MouseButton1Click:Connect(function()
@@ -474,7 +427,7 @@ end)
 
 
 -- =====================================================================
--- 🚀 ИНИЦИАЛИЗАЦИЯ И ЛОГИКА АВТО-СТАРТА
+-- 🚀 ИНИЦИАЛИЗАЦИЯ И ЛОГИКА АВТО-СТАРТА v10 (С ЗАДЕРЖКОЙ 30с)
 -- =====================================================================
 task.spawn(function()
     local resPts = req("load_points")
@@ -484,28 +437,48 @@ task.spawn(function()
     local resCfg = req("load_autostart")
     if resCfg then pcall(function() autoStartConfig = HttpService:JSONDecode(resCfg) or {} end) end
 
-    -- --- ПРОВЕРКА АВТОСТАРТА ДЛЯ ТЕКУЩЕГО ИГРОКА ---
     local myNick = player.Name
-    local targetPoint = autoStartConfig[myNick]
+    local bindData = autoStartConfig[myNick]
 
-    if targetPoint and savedPoints[targetPoint] then
-        print("[ProCloud] АВТО-СТАРТ ЗАПУЩЕН! Игрок: " .. myNick .. " -> Спот: " .. targetPoint)
-        local pt = savedPoints[targetPoint]
+    if type(bindData) == "table" and bindData.p1 and savedPoints[bindData.p1] then
+        print(string.format("[ProCloud] АВТО-СТАРТ НАЙДЕН ДЛЯ '%s'. Ожидание прогрузки мира (30 секунд)...", myNick))
+        
+        -- Физическая задержка старта сценария
+        task.wait(30)
+        print("[ProCloud] 30 секунд истекли. Запуск автоматики...")
 
-        -- 1. Моментальный ТП
-        teleportTo(pt.X, pt.Y, pt.Z)
+        if bindData.mode == "dual" and bindData.p2 and savedPoints[bindData.p2] then
+            -- === СЦЕНАРИЙ: 2 ТОЧКИ ===
+            print("[ProCloud-Dual] Шаг 1: ТП на точку №1 (" .. bindData.p1 .. ")")
+            local pt1 = savedPoints[bindData.p1]
+            teleportTo(pt1.X, pt1.Y, pt1.Z)
 
-        -- 2. Отложенная симуляция через 5 секунд
-        task.spawn(function()
             task.wait(5)
-            print("[ProCloud] Авто-старт: Прошло 5 сек. Жмем клавишу '1'")
-            pressKey(Enum.KeyCode.One)
+            print("[ProCloud-Dual] Шаг 2: Прошло 5 сек. Жмем 'Q'")
+            pressKey(Enum.KeyCode.Q)
 
-            print("[ProCloud] Авто-старт: Включаем режим Пробела (интервал 60с)")
+            task.wait(5)
+            print("[ProCloud-Dual] Шаг 3: Прошло 5 сек. ТП на точку №2 (" .. bindData.p2 .. ")")
+            local pt2 = savedPoints[bindData.p2]
+            teleportTo(pt2.X, pt2.Y, pt2.Z)
+
+            print("[ProCloud-Dual] Шаг 4: Жмем '1' и запускаем спаммер Пробела (60с)")
+            pressKey(Enum.KeyCode.One)
             toggleSpaceMode(true, 60)
-        end)
+
+        else
+            -- === СЦЕНАРИЙ: 1 ТОЧКА ===
+            print("[ProCloud-Single] ТП на точку (" .. bindData.p1 .. ")")
+            local pt = savedPoints[bindData.p1]
+            teleportTo(pt.X, pt.Y, pt.Z)
+
+            task.wait(5)
+            print("[ProCloud-Single] Прошло 5 сек. Жмем '1' и запускаем спаммер Пробела (60с)")
+            pressKey(Enum.KeyCode.One)
+            toggleSpaceMode(true, 60)
+        end
     else
-        print("[ProCloud] Игрок " .. myNick .. " не найден в autostart.json. Обычный запуск.")
+        print("[ProCloud] Персонаж " .. myNick .. " не имеет привязки к авто-старту. Свободный режим.")
     end
 end)
 
